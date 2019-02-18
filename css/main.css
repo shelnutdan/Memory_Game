@@ -1,0 +1,28 @@
+body, html{
+  overflow: hidden;
+}
+h1{
+  text-align:center;
+}
+.grid-container {
+  display: grid;
+  justify-content: center;
+  background-color: #001;
+  grid-template-columns: repeat(4,20%);
+  grid-template-rows: repeat(4,20%);
+  grid-gap:25px;
+  padding:100px;
+  vertical-align: center;
+}
+.card {
+  color: white;
+  background-color: red;
+  text-align: center;
+  padding:50px;
+  border-radius: 5%;
+}
+
+.card-flip {
+  background-color: green;
+  color:green;
+}
