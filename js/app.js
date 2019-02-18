@@ -20,9 +20,25 @@ $(document).ready(function(){
       document.getElementsByClassName('.card').css({"background-color":"green"});
     },false
   );*/
-  $('#card1A').click(function(){
-    $('#card1A').addClass('card-flip')
-  })
-  console.log(cards);
+  /*temporary stoarge for cards in a turn*/
+  let tempCards=[];
 
+  /*Allows for the cards to be flipped
+  and then stored into a temporary variable for later comparsions*/
+/*  $('.grid-container').on('click',"div",function(){
+    $(this).addClass('card-flip');
+    tempCards.push(this);
+    //console.log(tempCards);
+  })*/
+  //console.log(cards);
+  /*Logic for a turn: a turn is occuringing while the array tempCards is less than length 2*/
+  /*Use a while loop that */
+  while (tempCards.length<2){
+    $('.grid-container').on('click',"div",function(){
+      $(this).addClass('card-flip');
+      tempCards.push(this);
+      //console.log(tempCards);
+    })
+  }
+    console.log(tempCards);
   });
