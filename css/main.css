@@ -25,4 +25,10 @@ h1{
 .card-flip {
   background-color: green;
   color:green;
+  
+}
+
+.card-match {
+  opacity:0.2;
+
 }
