@@ -6,7 +6,7 @@ $(document).ready(function(){
   console.log(cardArray);
 
   /*Start game function*/
-  $(function() {
+  function shuffleGrid() {
 
     console.log(cardArray);
         /*Shuffling function for the array of the cardArray*/
@@ -15,17 +15,25 @@ $(document).ready(function(){
           appendArray.append(cardArray.splice(Math.floor(Math.random() * cardArray.length)));
       }
 
-  }());
+  };
+  //shuffleGrid();
 
   $('.start').on('click',function(){
     console.log("Okay we are starting");
-    //startGame();
+    shuffleGrid()
+    startGame();
   })
-  let matchCards=[];
+  $('.reset').on('click',function(){
+    console.log("Resetting the game");
+    shuffleGrid()
+    startGame();
+  })
+  //let matchCards=[];
   /*function startGame(){
     while(matchCards.length<16){
-      
+
     } console.log('game is over!')
+
   }
 
   */
@@ -41,19 +49,55 @@ $(document).ready(function(){
   }
 
 }
+Start game function*/
+function startGame(){
+  shuffleGrid();
 
+
+
+  let timeStart=Date.now();
+  cardClicks();
+
+
+}
+/*resetButton
+
+/* endGame function*/
+function endGame(){
+let timeEnd=Date.now;
+let total= timeEnd=timeStart;
+console.log(timeStart);
+console.log(timeEnd);
+console.log(total)
+  alert('Congrats you have won!');
+}
 
   /*comparsions function*/
+function matchCards(){
+   firstCard.addClass('card-match')
+   secondCard.addClass('card-match')
+   console.log(firstCard)
+   console.log(secondCard)
+   matchCard.push(firstCard,secondCard)
+   console.log(matchCard.length);
+}
+/*reset card function*/
+function resetCards(){
+  firstCard.removeClass('card-flip');
+  secondCard.removeClass('card-flip');
+  firstCard='';
+  secondCard='';
+  count=0;
+}
+/*  obsoluete function
 
-
-
-  function compareCard(){
+function compareCard(){
     if (tempCards[0].isEqualNode(tempCards[1])){
       matchCards.push(tempCards[0]);
       matchCards.push(tempCards[1]);
       tempCards[0].classList.add('card-match');
       tempCards[1].classList.add('card-match');
-      console.log(matchCards);
+      console.log(matchCards.length);
       //delete tempCards[0];
       //delete tempCards[1];
       console.log(tempCards);
@@ -64,6 +108,8 @@ $(document).ready(function(){
     //delete tempCards[1];
   }
 }
+
+*/
 
 
   /*reset function*/
@@ -88,21 +134,74 @@ $(document).ready(function(){
   /*Use a while loop that */
 
  /* Card flipping functionality*/
-let tempCards=[];
+/*let tempCards=[];
+let count=0;
+let turnCounter=0;
+let firstCard="";
+let secondCard="";
+let currentSelection=null;
+let matchCard=[];*/
+let count=0;
+let turnCounter=0;
+let firstCard="";
+let secondCard="";
+let matchCard=[];
 function cardClicks(){
+  
 
 
-   let count=0;
+  let currentSelection=null;
+
   $('.grid-container').on('click',"div",function(){
 
-    $(this).addClass('card-flip');
-    tempCards.push(this);
-    count+=1;
+    //$(this).addClass('card-flip');
+    //firstCard=$(this).text();
+    //console.log(firstCard);
+    //let secondcard="";
     //console.log(count);
-    if (count==2){
+    /*if ($(this)==currentSelection){
+      return;
+    }*/
+
+    if (count<2){
+      count+=1;
+      $(this).addClass('card-flip')
+
+      if (count ==1){
+        //firstCard=$(this).dataset.id;
+
+        firstCard=$(this)
+        currentSelection=firstCard;
+        console.log(currentSelection)
+      } else{
+        secondCard=$(this)
+      }
+       if (!$(this).hasClass('card-flip')){
+        //secondCard=$(this).dataset.id;
+        //$(this).addClass('card-flip')
+        //secondCard=$(this)
+        return ;
+      }
+
+      if (count==2){
+        if( firstCard.text()===secondCard.text()){
+          console.log('Match');
+          console.log(firstCard);
+          console.log(secondCard);
+          turnCounter+=1;
+          setTimeout(matchCards(),100000);
+          resetCards();
+        }else{
+          console.log('no match');
+          console.log(firstCard);
+          console.log(secondCard);
+          turnCounter+=1;
+          resetCards();
+
+        }
+      }
       //console.log(tempCards)
-      compareCard()
-      let tempCards=[];
+
     }
     //console.log(tempCards);
     /*Place logic for determine if cards match */
@@ -126,7 +225,7 @@ function cardClicks(){
       //console.log(tempCards);
       /*Place logic for determine if cards match */
 
-    cardClicks();
+    //cardClicks();
 
     //console.log(tempCards);
   });
