@@ -10,18 +10,42 @@
     src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
   <script type="text/javascript" src="./js/app.js"></script>
 
 </head>
 <body>
-  <header>
-    <h1>Memory Game</h1>
-  </header>
   <main>
+    <div class='container'>
+      <header>
+      <h1>Memory Game</h1>
+      <div class='timer'>
+        <p id='timeDisplay'></p>
+      </div>
+      <div class='rating'>
+      </div>
+    </header>
     <div class='grid-container'>
-      <div class='card 1A' data-id='1'>1</div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
+      <div class='card'></div>
       <!--  <div class='front'>1</div>
-        <div class='back'>100</div>-->
+        <div class='back'>100</div>-
 
       <div class='card 2'>2</div>
       <div class='card 3' >3</div>
@@ -31,8 +55,8 @@
       <div class='card 7' >7</div>
       <div class='card 8' >8</div>
       <div class='card 1B'>1</div>
-      <!--  <div class='front'>1</div>
-        <div class='back'>100</div>-->
+      < <div class='front'>1</div>
+        <div class='back'>100</div>-
 
         <div class='card 2'>2</div>
         <div class='card 3' >3</div>
@@ -40,7 +64,7 @@
         <div class='card 5' >5</div>
         <div class='card 6' >6</div>
         <div class='card 7' >7</div>
-        <div class='card 8' >8</div>
+        <div class='card 8' >8</div>-->
     </div>
     <button class='start'>
       <span>Play Game</span>
@@ -48,6 +72,26 @@
     <button class='reset'>
       <span>Reset</span>
     </button>
+  </div>
+  <!--Modal popup system that display after the game is completed https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=modal -->
+  <div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to save changes you made to document before closing?</p>
+                <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
   </main>
 </body>
