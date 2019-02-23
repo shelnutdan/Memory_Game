@@ -34,3 +34,12 @@ h1{
 .container{
   display:block;
 }
+#myModal{
+  display:none;
+}
+
+.modal-content{
+  border:  solid 2px black;
+  justify-content: center;
+
+}

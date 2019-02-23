@@ -1,13 +1,63 @@
+
 let MatchGame={};
 let count=0;
 let matchCount=0;
+/* Timer function*/
+/* Utilized code from daniel hug link:https://jsfiddle.net/Daniel_Hug/pvk6p/
+and the provide linkhttp://jsfiddle.net/6nDYd/10/
+*/
+let seconds = 0;
+let minutes = 0;
+let time;
+
+/*Stack overflow*/
+function changeTime(){
+  document.getElementById('timeDisplay').innerHTML=++value;
+}
+function startTime(){
+  stop()
+  value=0;
+  time=setInterval(changeTime,1000);
+}
+let stop=function(){
+  clearInterval(time);
+}
+/*
+function addTime() {
+  setInterval(function(){
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+
+        }
+    }
+    time=(minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds)
+    document.getElementById('timeDisplay').innerHTML=  (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+  },1000);
+}*/
+
+/*
+
+timer();
+
+function timer() {
+time = setTimeout(add, 1000);
+}*/
 
 $(document).ready(function(){
   let $gameGrid = $('.grid-container');
 
-  $('.start').on('click',function(){
-    timer();
-    //let time =setInterval(myTimer,100)
+  document.getElementById('timeDisplay').innerHTML=  (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+  $('.start').one('click',function(){
+
+
+    startTime();
+    document.getElementById('movesDisplay').innerHTML=count
+    document.getElementById('stars').innerHTML="Four Stars"
     let cardNumbers=MatchGame.createCardNumbers()
 
     MatchGame.createCards(cardNumbers,$gameGrid);
@@ -31,67 +81,67 @@ function myTimer() {
   let timeString = startTime.toLocaleTimeString();
   document.getElementById('timeDisplay').innerHTML = timeString;
 }
-/**/
-/* Utilized code from daniel hug link:https://jsfiddle.net/Daniel_Hug/pvk6p/*/
-let seconds = 0;
-let minutes = 0;
-let time;
-
-function add() {
-seconds++;
-if (seconds >= 60) {
-    seconds = 0;
-    minutes++;
-    if (minutes >= 60) {
-        minutes = 0;
-
-    }
-}
-
-document.getElementById('timeDisplay').innerHTML=  (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
-
-timer();
-}
-function timer() {
-time = setTimeout(add, 1000);
-}
-
-
 
 
 /* Start button
-
-
-
 resetButton
 rating system
-
-function rating(time, moves){
-  if (count<26 & time)
-}
 */
-/*
-    $('.btn-primary').on('click', function(){
-      let $gameGrid = $('.grid-container');
+/*rating system*/
+function rating(moves){
+  if (50<moves ){
+  document.getElementById('stars').innerHTML="One Stars"}
+  else if (35<moves){
+  document.getElementById('stars').innerHTML="Two Stars"}
+  else if (20< moves){
+  document.getElementById('stars').innerHTML="Three Stars"}
+  else{
+  document.getElementById('stars').innerHTML="Four Stars"}
+}
 
-      $('.container').css({'display':'block'})
-      let cardNumbers=MatchGame.createCardNumbers()
 
-      MatchGame.createCards(cardNumbers,$gameGrid);
-      console.log(matchCount)
+/*Reset button*/
+$(document).ready(function(){
+  $('.reset').on('click',function(){
+    $("#myModal").modal('hide')
 
-    });
-});*/
+    //clearTimeout(addTime(),0)
+    //let time =setInterval(myTimer,100)
+    seconds = 0;
+    minutes = 0;
+    //time=0;
+    startTime()
+    //addTime();
+    let $gameGrid = $('.grid-container');
+    document.getElementById('movesDisplay').innerHTML=count;
+    document.getElementById('stars').innerHTML="Four Stars"
+    let cardNumbers=MatchGame.createCardNumbers()
+
+    MatchGame.createCards(cardNumbers,$gameGrid);
+    console.log(matchCount)
+
+  })
+
+})
 
 /*Generates array of match card numbers that will be uiused later for comparsions*/
 function endGame(){
+  seconds = 0;
+  minutes = 0;
   matchCount=0;
-
+  count=0;
   $(document).ready(function(){
     $("#myModal").modal('show');
 
     $('.container').css({'display':"none"})
+    //clearTimeout(time)
     $('.btn-primary').on('click', function(){
+      startTime()
+      let count=0;
+      $("#myModal").modal('hide')
+      document.getElementById('movesDisplay').innerHTML=count
+      document.getElementById('stars').innerHTML="Four Stars"
+      //addTime();
       let $gameGrid = $('.grid-container');
 
       $('.container').css({'display':'block'})
@@ -155,11 +205,9 @@ MatchGame.createCards= function(cardNumbers,$gameGrid){
 };
 
 
-
-
-
 MatchGame.cardFlip= function($card,$game){
   /*Prevents double clicks on the same card*/
+
   let timeStart= Date.now()
   if ($card.data('flipped')){
     return
@@ -182,16 +230,20 @@ MatchGame.cardFlip= function($card,$game){
       cardsFlip[0].css(matched);
       cardsFlip[1].css(matched);
       count+=2;
+      rating(count)
       matchCount+=2;
       //console.log(cardsFlip[0])
       //console.log(cardsFlip[1])
-      console.log(count);
-      console.log(matchCount)
+      document.getElementById('movesDisplay').innerHTML=count
+      //console.log(count);
+      //console.log(matchCount)
     } else {
       let firstCard = cardsFlip[0];
       var secondCard= cardsFlip[1];
       count+=2;
-      console.log(count);
+      rating(count)
+      document.getElementById('movesDisplay').innerHTML=count
+      //console.log(count);
       window.setTimeout(function() {
         firstCard.css('background-color', 'white')
             .text('')
@@ -202,13 +254,11 @@ MatchGame.cardFlip= function($card,$game){
       }, 350);
     }
     $game.data('flippedCards', []);
-    if (matchCount==2){
-      clearTimeout(t);/*
-      let timeEnd= Date.now()
+    if (matchCount==6){
+      console.log(document.querySelector('#timeDisplay').innerHTML)
+      stop()
+      clearTimeout(time)
 
-      console.log(timeStart);
-      console.log(timeEnd)
-      console.log(timeEnd-timeStart)*/
       endGame();
     }
   }
