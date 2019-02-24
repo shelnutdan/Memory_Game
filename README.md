@@ -18,6 +18,7 @@ The rating goes from one to four stars.
 **Star Rating**: throughout the game a live game rating will display to the user. Where more moves will result in the players rating to decrease.
 
 ## How to play
+If you want to play the game clone the repository [here](https://github.com/shelnutdan/Memory_Game.git)
 ## Instructions
 - Click on the start button center to game grid
 - Click on a card
