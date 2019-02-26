@@ -1,16 +1,13 @@
-
+/*Initialization */
 let MatchGame={};
 let count=0;
 let matchCount=0;
-/* Timer function*/
-/* Utilized code from daniel hug link:https://jsfiddle.net/Daniel_Hug/pvk6p/
-and the provide linkhttp://jsfiddle.net/6nDYd/10/
-*/
 //let seconds = 0;
 let minutes = 0;
 let time;
 
-/*Stack overflow*/
+
+/*Timer function that is started when a new game is started*/
 function changeTime(){
   document.getElementById('timeDisplay').innerHTML=++seconds;
 }
@@ -22,31 +19,9 @@ function startTime(){
 let stop=function(){
   clearInterval(time);
 }
-/*
-function addTime() {
-  setInterval(function(){
-    seconds++;
-    if (seconds >= 60) {
-        seconds = 0;
-        minutes++;
-        if (minutes >= 60) {
-            minutes = 0;
 
-        }
-    }
-    time=(minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds)
-    document.getElementById('timeDisplay').innerHTML=  (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
-  },1000);
-}*/
-
-/*
-
-timer();
-
-function timer() {
-time = setTimeout(add, 1000);
-}*/
-
+/*Functionality to the start button that starts the game with a new game grid, starts move counter,
+timer function, and starts recording of star rating*/
 $(document).ready(function(){
   let $gameGrid = $('.grid-container');
 
@@ -56,6 +31,7 @@ $(document).ready(function(){
 
 
     startTime();
+    /*Display initial values for moves and star rating*/
     document.getElementById('movesDisplay').innerHTML=count
     document.getElementById('stars').innerHTML="&#9733;&#9733;&#9733;&#9733;"
     let cardNumbers=MatchGame.createCardNumbers()
@@ -65,29 +41,9 @@ $(document).ready(function(){
 
   })
 })
-  //console.log(Object.keys(MatchGame).length)
-  /*Generates array of match card numbers that will be uiused later for comparsions*/
-  //let cardNumbers=MatchGame.createCardNumbers()
-  //console.log(cardNumbers)
-  //MatchGame.createCards(cardNumbers,$gameGrid);
-  /*$(function(){
-
-/*
-time function taken from W3school link: https://www.w3schools.com/jsref/met_win_setinterval.asp*/
-/*
-function myTimer() {
-
-  let startTime = new Date();
-  let timeString = startTime.toLocaleTimeString();
-  document.getElementById('timeDisplay').innerHTML = timeString;
-}
 
 
-/* Start button
-resetButton
-rating system
-*/
-/*rating system*/
+/*rating system that changes as the user completes more moves throughout the game*/
 function rating(moves){
   if (50<moves ){
   //document.getElementById('stars').innerHTML='&#9733;';
@@ -107,14 +63,14 @@ function rating(moves){
 }
 
 }
-/*Reset button*/
+/*Reset button that resets with a new game board, timer, move counter, and star rating*/
 $(document).ready(function(){
   $('.reset').on('click',function(){
     $("#endDisplay").modal('hide')
 
     count=0
     seconds = 0;
-    minutes = 0;
+    //minutes = 0;
     //time=0;
     startTime()
     //addTime();
@@ -137,17 +93,19 @@ function endGame(){
   matchCount=0;
   count=0;
   $(document).ready(function(){
+    /*Shows end game display to player and details their performance*/
     $("#endDisplay").modal('show');
 
     $('.container').css({'display':"none"})
     //clearTimeout(time)
+    /*play again button functionality that is similiar to the rest and start buttons*/
     $('.btn-primary').on('click', function(){
       startTime()
       let count=0;
       $("#endDisplay").modal('hide')
       document.getElementById('movesDisplay').innerHTML=count
       document.getElementById('stars').innerHTML="&#9733;&#9733;&#9733;&#9733;";
-      //addTime();
+
       let $gameGrid = $('.grid-container');
 
       $('.container').css({'display':'block'})
@@ -160,7 +118,7 @@ function endGame(){
   });
 }
 
-
+/*Create the card numbers that is used for comparsions later on*/
 MatchGame.createCardNumbers=function(){
   let cardArray=[];
   for (let i=1;i<=8;i++){
@@ -169,6 +127,7 @@ MatchGame.createCardNumbers=function(){
   }
 
   let numberArray=[];
+  /*Randomizes the card numbers into a array for when they eventually get turn into DOM objects*/
   while (cardArray.length != 0){
     let randomNum=Math.floor(Math.random() * cardArray.length);
     let cardValue=cardArray.splice(randomNum,1)[0]
@@ -201,24 +160,25 @@ MatchGame.createCards= function(cardNumbers,$gameGrid){
       color:color,
       flipped: false
     };
+    /*Places the card onto the DOM of the game grid*/
     let $cardElement=$("<div class='card'></div>");
     $cardElement.data(data);
     $gameGrid.append($cardElement);
   }
+  /*Calls the card 'flipping' function that displays the cards up and handles matches or mismatches*/
   $('.card').click(function(){
     MatchGame.cardFlip($(this),$gameGrid);
   })
 };
 
-
+/*The card flip function*/
 MatchGame.cardFlip= function($card,$game){
   /*Prevents double clicks on the same card*/
-
   let timeStart= Date.now()
   if ($card.data('flipped')){
     return
   }
-
+/* Changes the card to its 'face-up' position*/
   $card.css('background-color', $card.data('color'))
       .text($card.data('cardNum'))
       .data('flipped', true);
@@ -226,8 +186,9 @@ MatchGame.cardFlip= function($card,$game){
   cardsFlip.push($card);
 
 
-
+  /*Limits card flips to 2*/
   if (cardsFlip.length === 2) {
+    /*Set the matched cards to stay 'face-up'*/
     if (cardsFlip[0].data('cardNum') === cardsFlip[1].data('cardNum')) {
       let matched = {
         backgroundColor: 'rgb(153, 153, 153)',
@@ -244,6 +205,7 @@ MatchGame.cardFlip= function($card,$game){
       document.getElementById('stars').innerHTML=rating(count)
       //console.log(count);
       //console.log(matchCount)
+      /* Set cards that don't match back to 'face-down'*/
     } else {
       let firstCard = cardsFlip[0];
       var secondCard= cardsFlip[1];
@@ -262,164 +224,19 @@ MatchGame.cardFlip= function($card,$game){
       }, 350);
     }
     $game.data('flippedCards', []);
-    if (matchCount==6){
+    /*End game condition that will stop the game once all the cards have been matched up. Also sets the final display
+    elements detailing the players performance*/
+    if (matchCount==16){
       let finalTime=document.getElementById('timeDisplay').innerHTML;
       console.log(finalTime)
       document.getElementById('finalTime').innerHTML=finalTime
       document.getElementById('finalMoves').innerHTML=count
       document.getElementById('finalRating').innerHTML=rating(count)
+      /*stops timmer*/
       stop()
       clearTimeout(time)
-
+      /*Dispalys endgame options*/
       endGame();
     }
   }
 }
-
-
-  /*Constructing randomized grid and placing it on the DOM*
-  console.log('javascript is running?');
-  let appendArray = $('.grid-container');
-  let cardArray=appendArray.children();
-  console.log(cardArray);
-
-  /*Start game function*
-  function shuffleGrid() {
-
-    console.log(cardArray);
-        /*Shuffling function for the array of the cardArray*
-        /*shuffle function taken from https://jsfiddle.net/C6LPY/2*
-    while (cardArray.length!=0) {
-          appendArray.append(cardArray.splice(Math.floor(Math.random() * cardArray.length)));
-      }
-
-  };
-  //shuffleGrid();
-
-  $('.start').on('click',function(){
-    console.log("Okay we are starting");
-    shuffleGrid()
-    startGame();
-  })
-  $('.reset').on('click',function(){
-    console.log("Resetting the game");
-    cardArray.empty();
-    shuffleGrid()
-    startGame();
-  })
-/*Start game function*
-function startGame(){
-  shuffleGrid();
-
-
-
-  let timeStart=Date.now();
-  cardClicks();
-
-
-}
-/*resetButton
-
-/* endGame function*
-function endGame(){
-
-  setTimeout(alert('Congrats you have won!'),30000);
-}
-
-  /*comparsions function*
-function matchCards(){
-   firstCard.addClass('card-match')
-   secondCard.addClass('card-match')
-   console.log(firstCard)
-   console.log(secondCard)
-   matchCard.push(firstCard,secondCard)
-   console.log(matchCard.length);
-}
-/*reset card function*
-function resetCards(){
-  firstCard.removeClass('card-flip');
-  secondCard.removeClass('card-flip');
-  firstCard='';
-  secondCard='';
-  count=0;
-}
-
-
-
-
-  /*reset function*/
-
-  /*add listener event that flips over card*/
-  /*document.getElementsByClassName('.card').addEventListener('click', function(){
-      document.getElementsByClassName('.card').css({"background-color":"green"});
-    },false
-
-  /*temporary stoarge for cards in a turn*/
-
-
-  /*Allows for the cards to be flipped
-  and then stored into a temporary variable for later comparsions*/
-
-  //console.log(cards);
-  /*Logic for a turn: a turn is occuring while the array tempCards is less than length 2*/
-  /*Use a while loop that */
-
- /* Card flipping functionality*
-
-let count=0;
-let turnCounter=0;
-let firstCard="";
-let secondCard="";
-let matchCard=[];
-function cardClicks(){
-
-
-  $('.grid-container').on('click',"div",function(){
-
-
-
-    if (count<2){
-      count+=1;
-      $(this).addClass('card-flip')
-
-      if (count ==1){
-
-        firstCard=$(this)
-        currentSelection=firstCard;
-        console.log(currentSelection)
-      } else{
-        secondCard=$(this)
-      }
-       if (!$(this).hasClass('card-flip')){
-
-        return ;
-      }
-
-      if (count==2){
-        if( firstCard.text()===secondCard.text()){
-          console.log('Match');
-          console.log(firstCard);
-          console.log(secondCard);
-          turnCounter+=1;
-          setTimeout(matchCards(),100000);
-          resetCards();
-        }else{
-          console.log('no match');
-          console.log(firstCard);
-          console.log(secondCard);
-          turnCounter+=1;
-          resetCards();
-
-        }
-      }
-      //console.log(tempCards)
-      if (matchCard.length===16){
-        endGame();
-      }
-    }
-    //console.log(tempCards);
-    /*Place logic for determine if cards match */
-/*  })
-
-}
-})*/
