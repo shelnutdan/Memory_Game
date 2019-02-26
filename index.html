@@ -22,7 +22,7 @@
       <header>
       <h1>Memory Game</h1>
       <div class='timer'>
-        <p> Timer: <span id='timeDisplay'></span></p>
+        <p> Timer: <span id='timeDisplay'></span> Seconds</p>
       </div>
       <div class='moves'>
         <p>Number of moves: <span id='movesDisplay'></span></p>
@@ -56,20 +56,20 @@
     </button>
   </div>
   <!--Modal popup system that display after the game is completed https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=modal -->
-  <div id="myModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Confirmation</h4>
+  <div id="endDisplay" class="endDisplay-fade">
+    <div class="endDisplay-dialog">
+        <div class="endDisplay-content">
+            <div class="endDisplay-header">
+                <h4 class="endDisplay-title">Congratulations You have completed the game!</h4>
             </div>
-            <div class="modal-body">
-                <p>Do you want to save changes you made to document before closing?</p>
-                <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
+            <div class="endDisplay-body">
+                <p>Here is how you did:</p>
+                <p>You completed the game in: <span id='finalTime'></span> seconds</p>
+                <p>You completed the game in: <span id='finalMoves'></span> moves</p>
+                <p>Your rating for this game is: <span id='finalRating'></span></p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="endDisplay-footer">
+                <button type="button" class="btn btn-primary">Play Again</button>
             </div>
         </div>
     </div>

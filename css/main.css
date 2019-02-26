@@ -1,5 +1,5 @@
 body, html{
-  overflow: hidden;
+
 }
 h1{
   text-align:center;
@@ -26,15 +26,12 @@ h1{
   font-size:3rem;
 }
 
-.gameOver {
-  background-color: red !important;
-  color:red !important;
-}
+
 
 .container{
   display:block;
 }
-#myModal{
+#endDisplay{
   display:none;
 }
 

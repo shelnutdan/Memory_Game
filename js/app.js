@@ -6,17 +6,17 @@ let matchCount=0;
 /* Utilized code from daniel hug link:https://jsfiddle.net/Daniel_Hug/pvk6p/
 and the provide linkhttp://jsfiddle.net/6nDYd/10/
 */
-let seconds = 0;
+//let seconds = 0;
 let minutes = 0;
 let time;
 
 /*Stack overflow*/
 function changeTime(){
-  document.getElementById('timeDisplay').innerHTML=++value;
+  document.getElementById('timeDisplay').innerHTML=++seconds;
 }
 function startTime(){
   stop()
-  value=0;
+  seconds=0;
   time=setInterval(changeTime,1000);
 }
 let stop=function(){
@@ -50,14 +50,14 @@ time = setTimeout(add, 1000);
 $(document).ready(function(){
   let $gameGrid = $('.grid-container');
 
-  document.getElementById('timeDisplay').innerHTML=  (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+  document.getElementById('timeDisplay').innerHTML= 0;
 
   $('.start').one('click',function(){
 
 
     startTime();
     document.getElementById('movesDisplay').innerHTML=count
-    document.getElementById('stars').innerHTML="Four Stars"
+    document.getElementById('stars').innerHTML="&#9733;&#9733;&#9733;&#9733;"
     let cardNumbers=MatchGame.createCardNumbers()
 
     MatchGame.createCards(cardNumbers,$gameGrid);
@@ -90,23 +90,29 @@ rating system
 /*rating system*/
 function rating(moves){
   if (50<moves ){
-  document.getElementById('stars').innerHTML="One Stars"}
+  //document.getElementById('stars').innerHTML='&#9733;';
+  return '&#9733;'
+}
   else if (35<moves){
-  document.getElementById('stars').innerHTML="Two Stars"}
+  //document.getElementById('stars').innerHTML='&#9733;&#9733;'
+  return '&#9733;&#9733;'
+}
   else if (20< moves){
-  document.getElementById('stars').innerHTML="Three Stars"}
+  //document.getElementById('stars').innerHTML="&#9733;&#9733;&#9733;"
+  return "&#9733;&#9733;&#9733;"
+}
   else{
-  document.getElementById('stars').innerHTML="Four Stars"}
+  //document.getElementById('stars').innerHTML="&#9733;&#9733;&#9733;&#9733;"
+  return "&#9733;&#9733;&#9733;&#9733;"
 }
 
-
+}
 /*Reset button*/
 $(document).ready(function(){
   $('.reset').on('click',function(){
-    $("#myModal").modal('hide')
+    $("#endDisplay").modal('hide')
 
-    //clearTimeout(addTime(),0)
-    //let time =setInterval(myTimer,100)
+    count=0
     seconds = 0;
     minutes = 0;
     //time=0;
@@ -114,7 +120,7 @@ $(document).ready(function(){
     //addTime();
     let $gameGrid = $('.grid-container');
     document.getElementById('movesDisplay').innerHTML=count;
-    document.getElementById('stars').innerHTML="Four Stars"
+    document.getElementById('stars').innerHTML="&#9733;&#9733;&#9733;&#9733;"
     let cardNumbers=MatchGame.createCardNumbers()
 
     MatchGame.createCards(cardNumbers,$gameGrid);
@@ -131,16 +137,16 @@ function endGame(){
   matchCount=0;
   count=0;
   $(document).ready(function(){
-    $("#myModal").modal('show');
+    $("#endDisplay").modal('show');
 
     $('.container').css({'display':"none"})
     //clearTimeout(time)
     $('.btn-primary').on('click', function(){
       startTime()
       let count=0;
-      $("#myModal").modal('hide')
+      $("#endDisplay").modal('hide')
       document.getElementById('movesDisplay').innerHTML=count
-      document.getElementById('stars').innerHTML="Four Stars"
+      document.getElementById('stars').innerHTML="&#9733;&#9733;&#9733;&#9733;";
       //addTime();
       let $gameGrid = $('.grid-container');
 
@@ -176,14 +182,14 @@ MatchGame.createCardNumbers=function(){
 MatchGame.createCards= function(cardNumbers,$gameGrid){
 /*have list of colors for the cards to take when flipped over*/
   let colors = [
-    'hsl(25, 85%, 65%)',
-    'hsl(55, 85%, 65%)',
-    'hsl(90, 85%, 65%)',
-    'hsl(160, 85%, 65%)',
-    'hsl(220, 85%, 65%)',
-    'hsl(265, 85%, 65%)',
-    'hsl(310, 85%, 65%)',
-    'hsl(360, 85%, 65%)']
+    '#f2995a',
+    '#f2e55a',
+    '#a6f25a',
+    '#5af2bf',
+    '#5a8cf2',
+    '#995af2',
+    '#f25ad8',
+    '#f25a5a']
   /*Empty out the game grid to */
   $gameGrid.empty()
   $gameGrid.data('flippedCards',[]);
@@ -234,7 +240,8 @@ MatchGame.cardFlip= function($card,$game){
       matchCount+=2;
       //console.log(cardsFlip[0])
       //console.log(cardsFlip[1])
-      document.getElementById('movesDisplay').innerHTML=count
+      document.getElementById('movesDisplay').innerHTML=count;
+      document.getElementById('stars').innerHTML=rating(count)
       //console.log(count);
       //console.log(matchCount)
     } else {
@@ -243,19 +250,24 @@ MatchGame.cardFlip= function($card,$game){
       count+=2;
       rating(count)
       document.getElementById('movesDisplay').innerHTML=count
+      document.getElementById('stars').innerHTML=rating(count)
       //console.log(count);
       window.setTimeout(function() {
-        firstCard.css('background-color', 'white')
+        firstCard.css('background-color', '#FFF')
             .text('')
             .data('flipped', false);
-        secondCard.css('background-color', 'white')
+        secondCard.css('background-color', '#FFF')
             .text('')
             .data('flipped', false);
       }, 350);
     }
     $game.data('flippedCards', []);
     if (matchCount==6){
-      console.log(document.querySelector('#timeDisplay').innerHTML)
+      let finalTime=document.getElementById('timeDisplay').innerHTML;
+      console.log(finalTime)
+      document.getElementById('finalTime').innerHTML=finalTime
+      document.getElementById('finalMoves').innerHTML=count
+      document.getElementById('finalRating').innerHTML=rating(count)
       stop()
       clearTimeout(time)
 
