@@ -21,15 +21,26 @@
     <div class='container'>
       <header>
       <h1>Memory Game</h1>
-      <div class='timer'>
-        <p> Timer: <span id='timeDisplay'></span> Seconds</p>
+      <div class='stats'>
+        <div class='timer'>
+          <p>Timer: <span id='timeDisplay'></span> Seconds</p>
+        </div>
+        <div class='moves'>
+          <p>Moves: <span id='movesDisplay'></span></p>
+        </div>
+        <div class='rating'><p>Rating: <span id='stars'></span></p>
+        </div>
       </div>
-      <div class='moves'>
-        <p>Number of moves: <span id='movesDisplay'></span></p>
-      </div>
-      <div class='rating'><p>Current rating is: <span id='stars'></span></p>
+      <div class='game_button'>
+        <button class='start'>
+          <span>Play Game</span>
+        </button>
+        <button class='reset'>
+          <span>Reset</span>
+        </button>
       </div>
     </header>
+
     <div class='grid-container'>
       <div class='card'></div>
       <div class='card'></div>
@@ -48,28 +59,24 @@
       <div class='card'></div>
       <div class='card'></div>
     </div>
-    <button class='start'>
-      <span>Play Game</span>
-    </button>
-    <button class='reset'>
-      <span>Reset</span>
-    </button>
+
+
   </div>
   <!--Modal popup system that display after the game is completed https://www.tutorialrepublic.com/codelab.php?topic=bootstrap&file=modal -->
   <div id="endDisplay" class="endDisplay-fade">
     <div class="endDisplay-dialog">
         <div class="endDisplay-content">
             <div class="endDisplay-header">
-                <h4 class="endDisplay-title">Congratulations You have completed the game!</h4>
+                <h2>Congratulations You have completed the game!</h2>
             </div>
             <div class="endDisplay-body">
-                <p>Here is how you did:</p>
+                <h3>Here is how you did</h3>
                 <p>You completed the game in: <span id='finalTime'></span> seconds</p>
                 <p>You completed the game in: <span id='finalMoves'></span> moves</p>
                 <p>Your rating for this game is: <span id='finalRating'></span></p>
             </div>
             <div class="endDisplay-footer">
-                <button type="button" class="btn btn-primary">Play Again</button>
+                <button type="button" class="btn btn-primary">Play Again?</button>
             </div>
         </div>
     </div>

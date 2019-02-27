@@ -2,7 +2,6 @@
 let MatchGame={};
 let count=0;
 let matchCount=0;
-//let seconds = 0;
 let minutes = 0;
 let time;
 
@@ -70,10 +69,8 @@ $(document).ready(function(){
 
     count=0
     seconds = 0;
-    //minutes = 0;
-    //time=0;
     startTime()
-    //addTime();
+
     let $gameGrid = $('.grid-container');
     document.getElementById('movesDisplay').innerHTML=count;
     document.getElementById('stars').innerHTML="&#9733;&#9733;&#9733;&#9733;"
@@ -226,7 +223,7 @@ MatchGame.cardFlip= function($card,$game){
     $game.data('flippedCards', []);
     /*End game condition that will stop the game once all the cards have been matched up. Also sets the final display
     elements detailing the players performance*/
-    if (matchCount==16){
+    if (matchCount==4){
       let finalTime=document.getElementById('timeDisplay').innerHTML;
       console.log(finalTime)
       document.getElementById('finalTime').innerHTML=finalTime
