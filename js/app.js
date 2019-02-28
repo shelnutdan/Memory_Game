@@ -109,7 +109,7 @@ function endGame(){
       let cardNumbers=MatchGame.createCardNumbers()
 
       MatchGame.createCards(cardNumbers,$gameGrid);
-      console.log(matchCount)
+      //console.log(matchCount)
 
     });
   });
@@ -223,7 +223,7 @@ MatchGame.cardFlip= function($card,$game){
     $game.data('flippedCards', []);
     /*End game condition that will stop the game once all the cards have been matched up. Also sets the final display
     elements detailing the players performance*/
-    if (matchCount==4){
+    if (matchCount==16){
       let finalTime=document.getElementById('timeDisplay').innerHTML;
       console.log(finalTime)
       document.getElementById('finalTime').innerHTML=finalTime
