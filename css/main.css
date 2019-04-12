@@ -4,9 +4,10 @@ body, html{
 }
 h1{
   text-align:center;
-  color:#fff;
+  color:#000;
+  font-size: 3.75rem;
 }
-
+/*Stat tracker styling*/
 .stats{
   display:grid;
   grid-template-columns: repeat(3,1fr);
@@ -16,11 +17,30 @@ h1{
   text-align: center;
   margin-left:40px;
   margin-right: 40px;
+  font-size: 2.0rem;
 }
 .timer, .moves, .rating{
-  border: 4px solid #001;
+  border: 1.3em solid transparent;
   border-radius: 5%;
   background-color: #fff;
+}
+#stars{
+  color:#fffa00;
+  font-size: 2.25rem;
+}
+/*Start and reset button positioning*/
+
+button {
+  border: 0.3em solid transparent;
+  border-radius: 10%;
+  background-color: #fff;
+  padding:10px;
+  margin-right: 10px;
+  font-size:1.5rem;
+  font-weight: 800;
+}
+button:hover{
+  cursor: pointer;
 }
 
 .game_button{
@@ -29,6 +49,8 @@ h1{
   margin-bottom: -50px;
   margin-top: 30px;
 }
+
+/*Game grid styling*/
 .grid-container {
   display: grid;
   justify-content: center;
@@ -42,12 +64,12 @@ h1{
   color: #000;
   background-color: #fff;
   text-align: center;
-  padding:50px;
+  padding:85px;
   border-radius: 5%;
   cursor:pointer;
-  border: 4px solid #001;
-  font-weight:900;
-  font-size:3rem;
+  border: 0.3em solid transparent;
+  font-weight:800;
+  font-size:3.25rem;
 
 }
 
@@ -56,13 +78,14 @@ h1{
 .container{
   display:block;
 }
+/*End game display styling*/
 #endDisplay{
   display:none;
 
 }
 
 .endDisplay-content{
-  border:  solid 2px #001
+  border: 0.3em solid transparent;
   border-radius: 10%;
   background-color: #fff;
   text-align: center;
@@ -80,14 +103,4 @@ h1{
 
 .endDisplay-header{
   width:100%;
-}
-
-button {
-  border: 1px solid #001;
-  border-radius: 10%;
-  background-color: #fff;
-  padding:10px;
-  margin-right: 10px;
-  font-size:bold;
-
 }

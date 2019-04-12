@@ -36,7 +36,7 @@ $(document).ready(function(){
     let cardNumbers=MatchGame.createCardNumbers()
 
     MatchGame.createCards(cardNumbers,$gameGrid);
-    console.log(matchCount)
+
 
   })
 })
@@ -44,20 +44,21 @@ $(document).ready(function(){
 
 /*rating system that changes as the user completes more moves throughout the game*/
 function rating(moves){
+
   if (50<moves ){
-  //document.getElementById('stars').innerHTML='&#9733;';
+
   return '&#9733;'
 }
   else if (35<moves){
-  //document.getElementById('stars').innerHTML='&#9733;&#9733;'
+
   return '&#9733;&#9733;'
 }
   else if (20< moves){
-  //document.getElementById('stars').innerHTML="&#9733;&#9733;&#9733;"
+
   return "&#9733;&#9733;&#9733;"
 }
   else{
-  //document.getElementById('stars').innerHTML="&#9733;&#9733;&#9733;&#9733;"
+
   return "&#9733;&#9733;&#9733;&#9733;"
 }
 
@@ -77,7 +78,7 @@ $(document).ready(function(){
     let cardNumbers=MatchGame.createCardNumbers()
 
     MatchGame.createCards(cardNumbers,$gameGrid);
-    console.log(matchCount)
+
 
   })
 
@@ -109,7 +110,7 @@ function endGame(){
       let cardNumbers=MatchGame.createCardNumbers()
 
       MatchGame.createCards(cardNumbers,$gameGrid);
-      //console.log(matchCount)
+
 
     });
   });
@@ -196,12 +197,10 @@ MatchGame.cardFlip= function($card,$game){
       count+=2;
       rating(count)
       matchCount+=2;
-      //console.log(cardsFlip[0])
-      //console.log(cardsFlip[1])
+
       document.getElementById('movesDisplay').innerHTML=count;
       document.getElementById('stars').innerHTML=rating(count)
-      //console.log(count);
-      //console.log(matchCount)
+
       /* Set cards that don't match back to 'face-down'*/
     } else {
       let firstCard = cardsFlip[0];
